@@ -13,15 +13,25 @@ _global_script_classes=[ {
 "class": "Brick",
 "language": "GDScript",
 "path": "res://scripts/Brick.gd"
+}, {
+"base": "Node",
+"class": "BrickGenerator",
+"language": "GDScript",
+"path": "res://scripts/BrickGenerator.gd"
 } ]
 _global_script_class_icons={
-"Brick": ""
+"Brick": "",
+"BrickGenerator": ""
 }
 
 [application]
 
 config/name="briko"
 run/main_scene="res://MainScene.tscn"
+
+[autoload]
+
+Audio="*res://scripts/Audio.gd"
 
 [input]
 
@@ -42,7 +52,29 @@ ui_quit={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
+ui_reset={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ball_throw={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="paddle"
+2d_physics/layer_2="ball"
+2d_physics/layer_3="bricks"
 
 [locale]
 
 locale_filter=[ 1, [  ] ]
+
+[rendering]
+
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0

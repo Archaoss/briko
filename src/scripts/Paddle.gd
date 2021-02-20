@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var speed := 500
 onready var initial_pos := position
 
-func _process(delta):
+func _process(delta) -> void :
 	var vel := Vector2()
 	
 	if Input.is_action_pressed("paddle_left"):

@@ -4,12 +4,13 @@ class_name Brick
 
 signal destroyed
 
+onready var anim_player : AnimationPlayer = $AnimationPlayer
 
-func _ready():
+func _ready() -> void:
 	add_to_group("bricks")
 
 	
-func take_hit(contact: Vector2, momentum: Vector2):
+func take_hit(contact: Vector2, momentum: Vector2) -> void:
 	emit_signal("destroyed")
 	
 	collision_layer = 2
@@ -20,5 +21,5 @@ func take_hit(contact: Vector2, momentum: Vector2):
 	linear_velocity = momentum / mass
 	
 	apply_torque_impulse((contact - global_position).cross(momentum))
-	$Tween.interpolate_property(self, "modulate", modulate, Color(0, 0, 0, 0), 1)
-	$Tween.start()
+	anim_player.get_animation("die").track_set_key_value(0, 0, modulate)
+	anim_player.play("die")

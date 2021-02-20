@@ -1,13 +1,92 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Ball.gd" type="Script" id=1]
+[ext_resource path="res://materials/ball.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 500, 0 )
+initial_velocity = 500.0
+initial_velocity_random = 0.58
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 100.0
+damping_random = 1.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reinit"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Particles2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+
 [node name="Ball" type="KinematicBody2D"]
+modulate = Color( 1, 0.929412, 0.717647, 1 )
+collision_layer = 2
+collision_mask = 5
 script = ExtResource( 1 )
+speed = 200
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
-[node name="Tween" type="Tween" parent="."]
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 272
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.78
+randomness = 1.0
+visibility_rect = Rect2( -295.471, -233.075, 638.739, 252.805 )
+local_coords = false
+process_material = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/die = SubResource( 3 )
